@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Name=BitcoinFlex Core
+Comment=BitcoinFlex P2P Cryptocurrency
+Comment[fr]=BitcoinFlex, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=BitcoinFlex, eşten eşe kriptografik sanal para birimi
+Exec=bitcoinflex-qt %u
+Terminal=false
+Type=Application
+Icon=bitcoinflex128
+MimeType=x-scheme-handler/bitcoinflex;
+Categories=Office;Finance;
+StartupWMClass=BitcoinFlex-qt

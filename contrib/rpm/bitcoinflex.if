@@ -1,0 +1,157 @@
+
+## <summary>policy for bitcoinflex</summary>
+
+
+########################################
+## <summary>
+##	Transition to bitcoinflex.
+## </summary>
+## <param name="domain">
+## <summary>
+##	Domain allowed to transition.
+## </summary>
+## </param>
+#
+interface(`bitcoinflex_domtrans',`
+	gen_require(`
+		type bitcoinflex_t, bitcoinflex_exec_t;
+	')
+
+	corecmd_search_bin($1)
+	domtrans_pattern($1, bitcoinflex_exec_t, bitcoinflex_t)
+')
+
+
+########################################
+## <summary>
+##	Execute bitcoinflex server in the bitcoinflex domain.
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access.
+##	</summary>
+## </param>
+#
+interface(`bitcoinflex_initrc_domtrans',`
+	gen_require(`
+		type bitcoinflex_initrc_exec_t;
+	')
+
+	init_labeled_script_domtrans($1, bitcoinflex_initrc_exec_t)
+')
+
+
+########################################
+## <summary>
+##	Search bitcoinflex lib directories.
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access.
+##	</summary>
+## </param>
+#
+interface(`bitcoinflex_search_lib',`
+	gen_require(`
+		type bitcoinflex_var_lib_t;
+	')
+
+	allow $1 bitcoinflex_var_lib_t:dir search_dir_perms;
+	files_search_var_lib($1)
+')
+
+########################################
+## <summary>
+##	Read bitcoinflex lib files.
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access.
+##	</summary>
+## </param>
+#
+interface(`bitcoinflex_read_lib_files',`
+	gen_require(`
+		type bitcoinflex_var_lib_t;
+	')
+
+	files_search_var_lib($1)
+	read_files_pattern($1, bitcoinflex_var_lib_t, bitcoinflex_var_lib_t)
+')
+
+########################################
+## <summary>
+##	Manage bitcoinflex lib files.
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access.
+##	</summary>
+## </param>
+#
+interface(`bitcoinflex_manage_lib_files',`
+	gen_require(`
+		type bitcoinflex_var_lib_t;
+	')
+
+	files_search_var_lib($1)
+	manage_files_pattern($1, bitcoinflex_var_lib_t, bitcoinflex_var_lib_t)
+')
+
+########################################
+## <summary>
+##	Manage bitcoinflex lib directories.
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access.
+##	</summary>
+## </param>
+#
+interface(`bitcoinflex_manage_lib_dirs',`
+	gen_require(`
+		type bitcoinflex_var_lib_t;
+	')
+
+	files_search_var_lib($1)
+	manage_dirs_pattern($1, bitcoinflex_var_lib_t, bitcoinflex_var_lib_t)
+')
+
+
+########################################
+## <summary>
+##	All of the rules required to administrate
+##	a bitcoinflex environment
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access.
+##	</summary>
+## </param>
+## <param name="role">
+##	<summary>
+##	Role allowed access.
+##	</summary>
+## </param>
+## <rolecap/>
+#
+interface(`bitcoinflex_admin',`
+	gen_require(`
+		type bitcoinflex_t;
+		type bitcoinflex_initrc_exec_t;
+		type bitcoinflex_var_lib_t;
+	')
+
+	allow $1 bitcoinflex_t:process { ptrace signal_perms };
+	ps_process_pattern($1, bitcoinflex_t)
+
+	bitcoinflex_initrc_domtrans($1)
+	domain_system_change_exemption($1)
+	role_transition $2 bitcoinflex_initrc_exec_t system_r;
+	allow $2 system_r;
+
+	files_search_var_lib($1)
+	admin_pattern($1, bitcoinflex_var_lib_t)
+
+')
+

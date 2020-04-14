@@ -1,0 +1,8 @@
+/usr/bin/bitcoinflex-cli		--	gen_context(system_u:object_r:bitcoinflex_exec_t,s0)
+/usr/sbin/bitcoinflexd		--	gen_context(system_u:object_r:bitcoinflex_exec_t,s0)
+/usr/lib(64)?/bitcoinflex/bitcoinflexd		--	gen_context(system_u:object_r:bitcoinflex_exec_t,s0)
+
+/etc/bitcoinflex(/.*)?		gen_context(system_u:object_r:bitcoinflex_conf_t,s0)
+/var/lib/bitcoinflex(/.*)?		gen_context(system_u:object_r:bitcoinflex_var_lib_t,s0)
+
+(/var)?/run/bitcoinflexd(/.*)?   gen_context(system_u:object_r:bitcoinflex_var_run_t,s0)

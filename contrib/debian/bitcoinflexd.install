@@ -1,0 +1,3 @@
+usr/local/bin/bitcoinflexd usr/bin
+usr/local/bin/bitcoinflex-cli usr/bin
+debian/examples/bitcoinflex.conf etc/bitcoinflex

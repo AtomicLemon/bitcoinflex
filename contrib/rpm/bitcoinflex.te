@@ -1,0 +1,81 @@
+policy_module(bitcoinflex, 1.100.1)
+
+########################################
+#
+# Declarations
+#
+
+type bitcoinflex_t;
+type bitcoinflex_exec_t;
+init_daemon_domain(bitcoinflex_t, bitcoinflex_exec_t)
+
+permissive bitcoinflex_t;
+
+type bitcoinflex_initrc_exec_t;
+init_script_file(bitcoinflex_initrc_exec_t)
+
+type bitcoinflex_conf_t;
+files_type(bitcoinflex_conf_t)
+
+type bitcoinflex_var_lib_t;
+files_type(bitcoinflex_var_lib_t)
+
+type bitcoinflex_var_run_t;
+files_type(bitcoinflex_var_run_t)
+
+type bitcoinflex_port_t;
+corenet_port(bitcoinflex_port_t)
+
+########################################
+#
+# bitcoinflex local policy
+#
+allow bitcoinflex_t self:process { fork };
+
+allow bitcoinflex_t self:fifo_file rw_fifo_file_perms;
+allow bitcoinflex_t self:unix_stream_socket create_stream_socket_perms;
+
+manage_dirs_pattern(bitcoinflex_t, bitcoinflex_conf_t, bitcoinflex_conf_t)
+manage_files_pattern(bitcoinflex_t, bitcoinflex_conf_t, bitcoinflex_conf_t)
+
+manage_dirs_pattern(bitcoinflex_t, bitcoinflex_var_lib_t, bitcoinflex_var_lib_t)
+manage_files_pattern(bitcoinflex_t, bitcoinflex_var_lib_t, bitcoinflex_var_lib_t)
+files_var_lib_filetrans(bitcoinflex_t, bitcoinflex_var_lib_t, { dir file })
+
+manage_dirs_pattern(bitcoinflex_t, bitcoinflex_var_run_t, bitcoinflex_var_run_t)
+manage_files_pattern(bitcoinflex_t, bitcoinflex_var_run_t, bitcoinflex_var_run_t)
+
+sysnet_dns_name_resolve(bitcoinflex_t)
+corenet_all_recvfrom_unlabeled(bitcoinflex_t)
+
+allow bitcoinflex_t self:tcp_socket create_stream_socket_perms;
+corenet_tcp_sendrecv_generic_if(bitcoinflex_t)
+corenet_tcp_sendrecv_generic_node(bitcoinflex_t)
+corenet_tcp_sendrecv_all_ports(bitcoinflex_t)
+corenet_tcp_bind_generic_node(bitcoinflex_t)
+
+gen_require(`
+    type bitcoinflex_port_t;
+')
+allow bitcoinflex_t bitcoinflex_port_t:tcp_socket name_bind;
+
+gen_require(`
+    type bitcoinflex_port_t;
+')
+allow bitcoinflex_t bitcoinflex_port_t:tcp_socket name_connect;
+
+domain_use_interactive_fds(bitcoinflex_t)
+
+files_read_etc_files(bitcoinflex_t)
+
+miscfiles_read_localization(bitcoinflex_t)
+
+sysnet_dns_name_resolve(bitcoinflex_t)
+
+allow bitcoinflex_t bitcoinflex_exec_t:file execute_no_trans;
+allow bitcoinflex_t self:process setsched;
+corecmd_exec_ls(bitcoinflex_t)
+corenet_tcp_connect_http_port(bitcoinflex_t)
+dev_read_urand(bitcoinflex_t)
+fs_getattr_xattr_fs(bitcoinflex_t)
+kernel_read_system_state(bitcoinflex_t)
