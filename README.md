@@ -1,4 +1,4 @@
-<img src="https://bitcoinflex.org/wp-content/uploads/2020/04/3-bitcoin-flex-logo-ot-large.png">
+<img src="https://bitcoinflex.org/assets/medium.png">
 
 Bitcoin Flex Core integration/staging repository
 =====================================
