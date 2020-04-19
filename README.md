@@ -26,8 +26,7 @@ More information at [bitcoinflex.org](http://www.bitcoinflex.org)
 
 
 
-**4.2% of total supply Premined for ICO, development, bountys and airdrop.
-*** Each Week the block reward will increase 2 xtella for 6 Months.
+
 
 ### PoS/PoW Block Details
 <table>
