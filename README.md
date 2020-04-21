@@ -19,7 +19,8 @@ More information at [bitcoinflex.org](http://www.bitcoinflex.org)
 <tr><td>Type</td><td>PoS</td></tr>
 <tr><td>Block Time</td><td>60 Seconds (1 min)</td></tr>
 <tr><td>Difficulty Retargeting</td><td>Every Block</td></tr>
-<tr><td>Max Coin Supply (PoS)</td><td>9,999,999,999 BCX</td></tr>
+<tr><td>Max Coin Supply (PoW)</td><td>12960000 BCX</td></tr>
+<tr><td>Max Coin Supply (PoS)</td><td> unlimited BCX</td></tr>
 <tr><td>Premine/Initial Supply</td><td>NO PREMINE</td></tr>
 
 
