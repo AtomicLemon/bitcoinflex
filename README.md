@@ -50,7 +50,7 @@ More information at [bitcoinflex.org](http://www.bitcoinflex.org)
 
 </table>
 
-### Slack
+### Socials
 <table>
 <tr><td>Twitter</td><td>https://twitter.com/bitcoinflexorg</td></tr>
 <tr><td>Discord Chat</td><td><a href="https://discord.gg/cvJjTgt">https://discord.gg/cvJjTgt</a></td></tr>
